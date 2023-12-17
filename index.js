@@ -6,13 +6,15 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 3001; // Heroku dynamically assigns a port
 
-if (process.env.NODE_ENV === 'development') {
+// if (process.env.NODE_ENV === 'development') {
+//     app.use(cors());
+// } else if(process.env.NODE_ENV === 'production') {
+//     app.use(cors({
+//         origin: 'https://dome-concert-controller-nziz4kqok-antonklocks-projects.vercel.app/'
+//     }));
+// }
+
     app.use(cors());
-} else if(process.env.NODE_ENV === 'production') {
-    app.use(cors({
-        origin: 'https://dome-concert-controller-nziz4kqok-antonklocks-projects.vercel.app/'
-    }));
-}
 
 let players = [
     {
