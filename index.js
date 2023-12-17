@@ -10,7 +10,7 @@ if (process.env.NODE_ENV === 'development') {
     app.use(cors());
 } else if(process.env.NODE_ENV === 'production') {
     app.use(cors({
-        origin: 'https://dome-concert-controller.vercel.app'
+        origin: 'https://dome-concert-controller-nziz4kqok-antonklocks-projects.vercel.app/'
     }));
 }
 
