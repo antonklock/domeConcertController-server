@@ -1,8 +1,18 @@
 const { v4: uuidv4 } = require('uuid');
 
+const cors = require('cors');
+
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 3001; // Heroku dynamically assigns a port
+
+if (process.env.NODE_ENV === 'development') {
+    app.use(cors());
+} else if(process.env.NODE_ENV === 'production') {
+    app.use(cors({
+        origin: 'https://dome-concert-controller.vercel.app'
+    }));
+}
 
 let players = [
     {
@@ -37,8 +47,10 @@ const removePlayer = (id) => {
 }
 
 app.get('/', (req, res) => {
-    const json = JSON.stringify("Hello from Heroku!");
-    res.send(json);
+    const response = {
+        message: "Hello from Heroku!"
+    }
+    res.json(response);
 });
 
 app.listen(port, () => {
