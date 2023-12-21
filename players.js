@@ -84,7 +84,7 @@ const players = [
     }, 
     {
         id: uuidv4(),
-        name: "Sven",
+        name: "Degis",
         position: {
             x: 210,
             y: 40
@@ -93,7 +93,7 @@ const players = [
     }, 
     {
         id: uuidv4(),
-        name: "Sven",
+        name: "Snusmannen",
         position: {
             x: 240,
             y: 40
@@ -102,7 +102,7 @@ const players = [
     }, 
     {
         id: uuidv4(),
-        name: "Sven",
+        name: "David",
         position: {
             x: 270,
             y: 40
@@ -111,7 +111,7 @@ const players = [
     }, 
     {
         id: uuidv4(),
-        name: "Sven",
+        name: "Polaren",
         position: {
             x: 300,
             y: 40
@@ -120,7 +120,7 @@ const players = [
     }, 
     {
         id: uuidv4(),
-        name: "Sven",
+        name: "Pär",
         position: {
             x: 330,
             y: 40
@@ -129,7 +129,7 @@ const players = [
     }, 
     {
         id: uuidv4(),
-        name: "Sven",
+        name: "Benny",
         position: {
             x: 360,
             y: 40
@@ -138,7 +138,7 @@ const players = [
     },
     {
         id: uuidv4(),
-        name: "Sven",
+        name: "Kalle",
         position: {
             x: 390,
             y: 40
@@ -147,7 +147,7 @@ const players = [
     },
     {
         id: uuidv4(),
-        name: "Sven",
+        name: "Felix",
         position: {
             x: 20,
             y: 60
@@ -156,7 +156,7 @@ const players = [
     },
     {
         id: uuidv4(),
-        name: "Sven",
+        name: "Preben",
         position: {
             x: 200,
             y: 60
@@ -165,7 +165,7 @@ const players = [
     },
     {
         id: uuidv4(),
-        name: "Sven",
+        name: "Zlatan",
         position: {
             x: 80,
             y: 60
@@ -174,7 +174,7 @@ const players = [
     },
     {
         id: uuidv4(),
-        name: "Sven",
+        name: "Willy",
         position: {
             x: 10,
             y: 80
@@ -183,7 +183,7 @@ const players = [
     },
     {
         id: uuidv4(),
-        name: "Sven",
+        name: "Tobias",
         position: {
             x: 40,
             y: 80
@@ -192,7 +192,7 @@ const players = [
     },
     {
         id: uuidv4(),
-        name: "Sven",
+        name: "Hans",
         position: {
             x: 120,
             y: 80
@@ -201,7 +201,7 @@ const players = [
     },
     {
         id: uuidv4(),
-        name: "Sven",
+        name: "Örjan",
         position: {
             x: 150,
             y: 80
