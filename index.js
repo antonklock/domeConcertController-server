@@ -68,10 +68,10 @@ app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
 
-function moveAllPlayers() {
-    setInterval(() => {
-        movePlayers();
-    }, 10);
-}
+// function moveAllPlayers() {
+//     setInterval(() => {
+//         movePlayers();
+//     }, 10);
+// }
 
-moveAllPlayers();
+// moveAllPlayers();
