@@ -1,10 +1,47 @@
 const players = require('./players.js');
-
+const http = require('http');
 const cors = require('cors');
 
+//EXPRESS
 const express = require('express');
 const app = express();
-const port = process.env.PORT || 3001; // Heroku dynamically assigns a port
+const port = process.env.PORT || 3010;
+
+//SOCKET IO
+const { Server } = require('socket.io');
+const server = http.createServer(app);
+// const io = new Server(server);
+
+const io = new Server({
+  cors: {
+        origin: "*", // Adjust CORS if needed
+  }
+});
+
+app.use(cors());
+io.listen(4010);
+
+io.on('connection', (socket) => {
+    console.log('A user connected');
+
+    socket.on('updatePlayerPositions', (data) => {
+        const { id, position } = data;
+        updatePlayerPosition(id, position);
+        io.emit('updatePlayerPositions', getAllPlayers());
+    });
+
+    socket.on('disconnect', () => {
+        console.log('A user disconnected');
+    });
+});
+
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
+});
+
+app.get('/', (req, res) => {
+    res.send("Hello from NodeJs!");
+});
 
 // if (process.env.NODE_ENV === 'development') {
 //     app.use(cors());
@@ -14,7 +51,7 @@ const port = process.env.PORT || 3001; // Heroku dynamically assigns a port
 //     }));
 // }
 
-    app.use(cors());
+
 
 const addPlayer = (name, color) => {
     players.push({
@@ -24,7 +61,7 @@ const addPlayer = (name, color) => {
             x: 0,
             y: 0
         },
-        color
+        color,
     });
 }
 
@@ -45,7 +82,6 @@ const updatePlayerPosition = (id, position) => {
     player.position = position;
 }
 
-//A function that moves all players on the X axis over time
 const movePlayers = () => {
     players.forEach(player => {
         player.position.x += (Math.random() - 0.5) * 10;
@@ -59,7 +95,7 @@ const movePlayers = () => {
 
 app.get('/', (req, res) => {
     const response = {
-        message: "Hello from Heroku!"
+        message: "Hello from NodeJs!"
     }
     res.json(response);
 });
@@ -68,14 +104,11 @@ app.get('/players', (req, res) => {
     res.json(players);
 });
 
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
-});
-
 function moveAllPlayers() {
     setInterval(() => {
         movePlayers();
-    }, 10);
+        io.emit('updatePlayerPositions', getAllPlayers());
+    }, 16.67);
 }
 
 moveAllPlayers();
