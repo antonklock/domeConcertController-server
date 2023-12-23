@@ -5,8 +5,6 @@ const cors = require('cors');
 const corsOptions = {
     origin: "https://dome-concert-controller.vercel.app",
     methods: ["GET", "POST"],
-    allowedHeaders: ["Content-Type", "Authorization", "Origin", "X-Requested-With", "Accept"],
-    credentials: true,
 };
 
 //EXPRESS
@@ -14,6 +12,12 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 3010;
 app.use(cors(corsOptions));
+// app.use(cors());
+
+
+app.listen(port, () => {
+  console.log(`App running on port ${port}`);
+});
 
 //SOCKET IO
 const { Server } = require('socket.io');
@@ -23,11 +27,9 @@ const io = new Server({
   cors: corsOptions,
 });
 
-
-
 const PORT = process.env.PORT || 4010;
 server.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+    console.log(`Socket server running on port ${PORT}`);
 });
 
 io.on('connection', (socket) => {
@@ -44,8 +46,8 @@ io.on('connection', (socket) => {
     });
 });
 
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
+app.get('/test-cors', function(req, res) {
+    res.json({ message: 'CORS-enabled response!' });
 });
 
 app.get('/', (req, res) => {
@@ -91,17 +93,6 @@ const movePlayers = () => {
         if (player.position.y < 0) player.position.y += 400;
     });
 };
-
-// app.get('/', (req, res) => {
-//     const response = {
-//         message: "Hello from NodeJs!"
-//     }
-//     res.json(response);
-// });
-
-app.get('/players', (req, res) => {
-    res.json(players);
-});
 
 function moveAllPlayers() {
     setInterval(() => {
