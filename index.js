@@ -12,7 +12,6 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 3010;
 app.use(cors(corsOptions));
-// app.use(cors());
 
 
 app.listen(port, () => {
