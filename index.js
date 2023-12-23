@@ -18,7 +18,11 @@ const io = new Server({
 });
 
 app.use(cors());
-io.listen(4010);
+
+const PORT = process.env.PORT || 4010; // Fallback to 4010 if not in a Heroku environment
+server.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
 
 io.on('connection', (socket) => {
     console.log('A user connected');
@@ -82,12 +86,12 @@ const movePlayers = () => {
     });
 };
 
-app.get('/', (req, res) => {
-    const response = {
-        message: "Hello from NodeJs!"
-    }
-    res.json(response);
-});
+// app.get('/', (req, res) => {
+//     const response = {
+//         message: "Hello from NodeJs!"
+//     }
+//     res.json(response);
+// });
 
 app.get('/players', (req, res) => {
     res.json(players);
