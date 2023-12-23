@@ -11,11 +11,8 @@ const corsOptions = {
 //EXPRESS
 const express = require('express');
 const app = express();
+// const port = process.env.PORT || 3010;
 app.use(cors(corsOptions));
-
-app.listen(port, () => {
-  console.log(`App running on port ${port}`);
-});
 
 //SOCKET IO
 const { Server } = require('socket.io');
@@ -37,17 +34,17 @@ io.on('connection', (socket) => {
     });
 });
 
-const PORT = process.env.PORT || 3010;
-server.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-});
-
 app.get('/test-cors', function(req, res) {
     res.json({ message: 'CORS-enabled response!' });
 });
 
 app.get('/', (req, res) => {
     res.send("Hello from NodeJs!");
+});
+
+const PORT = process.env.PORT || 3010;
+server.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
 });
 
 const addPlayer = (name, color) => {
