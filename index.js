@@ -11,15 +11,18 @@ const port = process.env.PORT || 3010;
 const { Server } = require('socket.io');
 const server = http.createServer(app);
 
+const corsOptions = {
+    origin: "https://dome-concert-controller.vercel.app",
+    methods: ["GET", "POST"],
+    credentials: true,
+};
+
+app.use(cors(corsOptions));
+
 const io = new Server({
-  cors: {
-        origin: "https://dome-concert-controller.vercel.app",
-        methods: ["GET", "POST"],
-        credentials: true
-  }
+  cors: corsOptions,
 });
 
-app.use(cors());
 
 const PORT = process.env.PORT || 4010;
 server.listen(PORT, () => {
