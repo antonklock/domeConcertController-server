@@ -92,4 +92,4 @@ function moveAllPlayers() {
     }, 16.67);
 }
 
-moveAllPlayers();
+// moveAllPlayers();
