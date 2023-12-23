@@ -16,21 +16,21 @@ const server = http.createServer(app);
 app.use(cors(corsOptions));
 
 //SOCKET IO
-const io = new Server(server, {cors: corsOptions});
+// const io = new Server(server, {cors: corsOptions});
 
-io.on('connection', (socket) => {
-    console.log('A user connected');
+// io.on('connection', (socket) => {
+//     console.log('A user connected');
 
-    socket.on('updatePlayerPositions', (data) => {
-        const { id, position } = data;
-        updatePlayerPosition(id, position);
-        io.emit('updatePlayerPositions', getAllPlayers());
-    });
+//     socket.on('updatePlayerPositions', (data) => {
+//         const { id, position } = data;
+//         updatePlayerPosition(id, position);
+//         io.emit('updatePlayerPositions', getAllPlayers());
+//     });
 
-    socket.on('disconnect', () => {
-        console.log('A user disconnected');
-    });
-});
+//     socket.on('disconnect', () => {
+//         console.log('A user disconnected');
+//     });
+// });
 
 app.get('/test-cors', function(req, res) {
     res.json({ message: 'CORS-enabled response!' });
