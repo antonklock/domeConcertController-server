@@ -14,6 +14,7 @@ const server = http.createServer(app);
 const corsOptions = {
     origin: "https://dome-concert-controller.vercel.app",
     methods: ["GET", "POST"],
+    allowedHeaders: ["Content-Type", "Authorization", "Origin", "X-Requested-With", "Accept"],
     credentials: true,
 };
 
