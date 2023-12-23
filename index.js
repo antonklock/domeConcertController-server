@@ -23,10 +23,10 @@ const server = http.createServer(app);
 
 const io = new Server(server, cors(corsOptions));
 
-const socketPORT = process.env.PORT || 4010;
-server.listen(socketPORT, () => {
-    console.log(`Socket server running on port ${socketPORT}`);
-});
+// const socketPORT = process.env.PORT || 4010;
+// server.listen(socketPORT, () => {
+//     console.log(`Socket server running on port ${socketPORT}`);
+// });
 
 io.on('connection', (socket) => {
     console.log('A user connected');
