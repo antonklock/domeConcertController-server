@@ -22,12 +22,12 @@ app.listen(port, () => {
 const { Server } = require('socket.io');
 const server = http.createServer(app);
 
-const io = new Server(server, cors(corsOptions));
-
 // const PORT = process.env.PORT || 4010;
 server.listen(port, () => {
     console.log(`Socket server running on port ${port}`);
 });
+
+const io = new Server(server, cors(corsOptions));
 
 io.on('connection', (socket) => {
     console.log('A user connected');
