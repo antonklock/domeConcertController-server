@@ -48,8 +48,12 @@ const updatePlayerPosition = (id, position) => {
 //A function that moves all players on the X axis over time
 const movePlayers = () => {
     players.forEach(player => {
-        player.position.x += 1;
+        player.position.x += (Math.random() - 0.5) * 10;
+        player.position.y += (Math.random() - 0.5) * 10;
         if (player.position.x > 400) player.position.x -= 400;
+        if (player.position.y > 400) player.position.y -= 400;
+        if (player.position.x < 0) player.position.x += 400;
+        if (player.position.y < 0) player.position.y += 400;
     });
 };
 
@@ -68,10 +72,10 @@ app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
 
-// function moveAllPlayers() {
-//     setInterval(() => {
-//         movePlayers();
-//     }, 10);
-// }
+function moveAllPlayers() {
+    setInterval(() => {
+        movePlayers();
+    }, 10);
+}
 
-// moveAllPlayers();
+moveAllPlayers();
