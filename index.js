@@ -2,15 +2,6 @@ const players = require('./players.js');
 const http = require('http');
 const cors = require('cors');
 
-//EXPRESS
-const express = require('express');
-const app = express();
-const port = process.env.PORT || 3010;
-
-//SOCKET IO
-const { Server } = require('socket.io');
-const server = http.createServer(app);
-
 const corsOptions = {
     origin: "https://dome-concert-controller.vercel.app",
     methods: ["GET", "POST"],
@@ -18,11 +9,20 @@ const corsOptions = {
     credentials: true,
 };
 
+//EXPRESS
+const express = require('express');
+const app = express();
+const port = process.env.PORT || 3010;
 app.use(cors(corsOptions));
+
+//SOCKET IO
+const { Server } = require('socket.io');
+const server = http.createServer(app);
 
 const io = new Server({
   cors: corsOptions,
 });
+
 
 
 const PORT = process.env.PORT || 4010;
