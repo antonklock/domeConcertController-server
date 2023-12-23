@@ -13,13 +13,15 @@ const server = http.createServer(app);
 
 const io = new Server({
   cors: {
-        origin: "*", // Adjust CORS if needed
+        origin: "https://dome-concert-controller.vercel.app",
+        methods: ["GET", "POST"],
+        credentials: true
   }
 });
 
 app.use(cors());
 
-const PORT = process.env.PORT || 4010; // Fallback to 4010 if not in a Heroku environment
+const PORT = process.env.PORT || 4010;
 server.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
