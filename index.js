@@ -11,7 +11,6 @@ const corsOptions = {
 //EXPRESS
 const express = require('express');
 const app = express();
-const port = process.env.PORT || 3010;
 app.use(cors(corsOptions));
 
 app.listen(port, () => {
@@ -21,11 +20,6 @@ app.listen(port, () => {
 //SOCKET IO
 const { Server } = require('socket.io');
 const server = http.createServer(app);
-
-// const PORT = process.env.PORT || 4010;
-server.listen(port, () => {
-    console.log(`Socket server running on port ${port}`);
-});
 
 const io = new Server(server, cors(corsOptions));
 
@@ -41,6 +35,11 @@ io.on('connection', (socket) => {
     socket.on('disconnect', () => {
         console.log('A user disconnected');
     });
+});
+
+const PORT = process.env.PORT || 3010;
+server.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
 });
 
 app.get('/test-cors', function(req, res) {
