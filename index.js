@@ -5,6 +5,7 @@ const cors = require('cors');
 const corsOptions = {
     origin: "https://dome-concert-controller.vercel.app",
     methods: ["GET", "POST"],
+    credentials: true,
 };
 
 //EXPRESS
