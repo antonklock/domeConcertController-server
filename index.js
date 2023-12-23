@@ -13,7 +13,6 @@ const app = express();
 const port = process.env.PORT || 3010;
 app.use(cors(corsOptions));
 
-
 app.listen(port, () => {
   console.log(`App running on port ${port}`);
 });
@@ -26,9 +25,9 @@ const io = new Server({
   cors: corsOptions,
 });
 
-const PORT = process.env.PORT || 4010;
-server.listen(PORT, () => {
-    console.log(`Socket server running on port ${PORT}`);
+const socketPORT = process.env.PORT || 4010;
+server.listen(socketPORT, () => {
+    console.log(`Socket server running on port ${socketPORT}`);
 });
 
 io.on('connection', (socket) => {
