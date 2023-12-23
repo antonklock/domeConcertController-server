@@ -24,9 +24,9 @@ const server = http.createServer(app);
 
 const io = new Server(server, cors(corsOptions));
 
-const socketPORT = process.env.PORT || 4010;
-server.listen(socketPORT, () => {
-    console.log(`Socket server running on port ${socketPORT}`);
+// const PORT = process.env.PORT || 4010;
+server.listen(port, () => {
+    console.log(`Socket server running on port ${port}`);
 });
 
 io.on('connection', (socket) => {
