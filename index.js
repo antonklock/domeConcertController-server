@@ -10,7 +10,6 @@ const port = process.env.PORT || 3010;
 //SOCKET IO
 const { Server } = require('socket.io');
 const server = http.createServer(app);
-// const io = new Server(server);
 
 const io = new Server({
   cors: {
@@ -42,16 +41,6 @@ app.listen(port, () => {
 app.get('/', (req, res) => {
     res.send("Hello from NodeJs!");
 });
-
-// if (process.env.NODE_ENV === 'development') {
-//     app.use(cors());
-// } else if(process.env.NODE_ENV === 'production') {
-//     app.use(cors({
-//         origin: 'https://dome-concert-controller-nziz4kqok-antonklocks-projects.vercel.app/'
-//     }));
-// }
-
-
 
 const addPlayer = (name, color) => {
     players.push({
