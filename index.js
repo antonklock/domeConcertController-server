@@ -37,7 +37,7 @@ io.on('connection', (socket) => {
 // });
 
 app.get('/', (req, res) => {
-    res.send("Hello from NodeJs!");
+    res.send("Server is running...");
 });
 
 const PORT = process.env.PORT || 3010;
