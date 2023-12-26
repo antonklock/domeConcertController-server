@@ -21,11 +21,11 @@ const io = new Server(server, {cors: corsOptions});
 io.on('connection', (socket) => {
     console.log('A user connected');
 
-    // socket.on('updatePlayerPositions', (data) => {
-    //     const { id, position } = data;
-    //     updatePlayerPosition(id, position);
-    //     io.emit('updatePlayerPositions', getAllPlayers());
-    // });
+    socket.on('updatePlayerPositions', (data) => {
+        const { id, position } = data;
+        updatePlayerPosition(id, position);
+        io.emit('updatePlayerPositions', getAllPlayers());
+    });
 
     socket.on('disconnect', () => {
         console.log('A user disconnected');
@@ -65,9 +65,9 @@ server.listen(PORT, () => {
 //     return players.find(player => player.id === id).position;
 // };
 
-// const getAllPlayers = () => {
-//     return players;
-// };
+const getAllPlayers = () => {
+    return players;
+};
 
 // const updatePlayerPosition = (id, position) => {
 //     const player = players.find(player => player.id === id);
