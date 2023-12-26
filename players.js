@@ -208,6 +208,24 @@ const players = [
         },
         color: 0x146f95,
     },
+    {
+        id: uuidv4(),
+        name: "Linda",
+        position: {
+            x: 250,
+            y: 90
+        },
+        color: 0x146f95,
+    },
+    {
+        id: uuidv4(),
+        name: "Gust",
+        position: {
+            x: 350,
+            y: 100
+        },
+        color: 0x146f95,
+    },
 ];
 
 module.exports = players;
