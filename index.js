@@ -1,4 +1,4 @@
-const players = require('./players.js');
+// const players = require('./players.js');
 const http = require('http');
 const cors = require('cors');
 const { Server } = require('socket.io');
