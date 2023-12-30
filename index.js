@@ -27,19 +27,25 @@ io.on('connection', (socket) => {
     socket.on('addPlayer', (data) => {
         const { name, color, id } = data;
         const playerExists = players.some(player => player.id === id);
+        console.log('Player exists: ' + playerExists);
+        console.log('Name: ' + name);
+        console.log('Id: ' + id);
 
         if (playerExists) updateLocalPlayerInfo(id, color, name);
-        else addPlayer(name, color, id);
+        else {
+            //TODO: MAKE FUNCTIONS PURE
+            const newId = addPlayer(name, color);
+            socket.emit('setNewId', newId);
+        }
     });
 
     socket.on('updateLocalPlayerInfo', (data) => {
         const { name, color } = data;
 
-        const id = uuid();
         console.log('Updating local player info');
         console.log('Name: ' + name);
+
         updateLocalPlayerInfo(id, color, name);
-        socket.emit('setNewId', id);
     });
 
     socket.on('checkIfPlayerExists', (data) => {
@@ -84,7 +90,10 @@ server.listen(PORT, () => {
 });
 
 //TODO: Rewrite so the server hands out an ID to the client
-const addPlayer = (name, color, id) => {
+const addPlayer = (name, color) => {
+    const id = uuid();
+    console.log('Adding player: ' + name + ' with color: ' + color + ' and id: ' + id);
+
     players.push({
         id,
         name,
@@ -94,6 +103,8 @@ const addPlayer = (name, color, id) => {
         },
         color,
     });
+
+    return id;
 }
 
 const removePlayer = (id) => {
