@@ -26,8 +26,32 @@ io.on('connection', (socket) => {
 
     socket.on('addPlayer', (data) => {
         const { name, color, id } = data;
-        addPlayer(name, color, id);
-        console.log('Player added');
+        const playerExists = players.some(player => player.id === id);
+
+        if (playerExists) updateLocalPlayerInfo(id, color, name);
+        else addPlayer(name, color, id);
+    });
+
+    socket.on('updateLocalPlayerInfo', (data) => {
+        const { name, color } = data;
+
+        const id = uuid();
+        console.log('Updating local player info');
+        console.log('Name: ' + name);
+        updateLocalPlayerInfo(id, color, name);
+        socket.emit('setNewId', id);
+    });
+
+    socket.on('checkIfPlayerExists', (data) => {
+        const { id } = data;
+        const player = players.find(player => player.id === id);
+        if (player) {
+            console.log("Player exists");
+            socket.emit('playerExists', true);
+        } else {
+            console.log("Player doesn't exists");
+            socket.emit('playerExists', false);
+        }
     });
 
     socket.on('removePlayer', (data) => {
@@ -40,7 +64,7 @@ io.on('connection', (socket) => {
         io.emit('updateAllRemotePlayers', getAllPlayers());
     });
 
-    socket.on('updateLocalPlayer', (data) => {
+    socket.on('updateLocalPlayerPosition', (data) => {
         const { id, position } = data;
         updatePlayerPosition(id, position);
     });
@@ -62,7 +86,7 @@ server.listen(PORT, () => {
 //TODO: Rewrite so the server hands out an ID to the client
 const addPlayer = (name, color, id) => {
     players.push({
-        id: id,
+        id,
         name,
         position: {
             x: 0,
@@ -70,14 +94,11 @@ const addPlayer = (name, color, id) => {
         },
         color,
     });
-    // console.log('Player added');
-    // console.log('Players: ');
-    // players.map(player => console.log(player.name));
 }
 
 const removePlayer = (id) => {
     if (players.length > 0) {
-        players = players.filter(player => player.id !== id);    
+        players = [...players.filter(player => player.id !== id)];
     } else {
         console.log('No players to remove');
     }
@@ -91,30 +112,24 @@ const updatePlayerPosition = (id, position) => {
     if (players.length > 0) {
         const player = players.find(player => player.id === id);
         if (player) {
-            player.position = { x: position.x, y: position.y + 40 };    
-            // console.log("Updating player with id: " + id);
-        } else {
-            // console.log('No player found');
-        }
+            player.position = { x: position.x, y: position.y };    
+        } 
     };
 }
 
-// const movePlayers = () => {
-//     players.forEach(player => {
-//         player.position.x += (Math.random() - 0.5) * 10;
-//         player.position.y += (Math.random() - 0.5) * 10;
-//         if (player.position.x > 400) player.position.x -= 400;
-//         if (player.position.y > 400) player.position.y -= 400;
-//         if (player.position.x < 0) player.position.x += 400;
-//         if (player.position.y < 0) player.position.y += 400;
-//     });
-// };
+const updateLocalPlayerInfo = (id, color, playerName) => {
+    if (players.length <= 0) {
+        console.log('No players to update');
+        return;
+    };
+    const player = players.find(player => player.id === id);
+    if (player) {
+        console.log("Updating player with id: " + id);
+        console.log('From: ' + player.name + " to --> " + playerName);
 
-// function moveAllPlayers() {
-//     setInterval(() => {
-//         movePlayers();
-//         io.emit('updatePlayerPositions', getAllPlayers());
-//     }, 33);
-// }
-
-// moveAllPlayers();
+        player.color = color;
+        player.name = playerName;
+    } else {
+        console.log('No player found');
+    }
+}

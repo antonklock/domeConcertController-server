@@ -228,16 +228,6 @@ const { v4: uuidv4 } = require('uuid');
 //     },
 // ];
 
-const players = [
-    {
-        id: uuidv4(),
-        name: "Anton",
-        position: {
-            x: 40,
-            y: 20
-        },
-        color: 0xf83e2e,
-    }, 
-];
+const players = [];
 
 module.exports = players;
