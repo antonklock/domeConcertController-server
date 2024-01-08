@@ -5,6 +5,7 @@ const { Server } = require('socket.io');
 const express = require('express');
 const { v4: uuid } = require('uuid');
 
+
 const origin = process.env.NODE_ENV === 'production' ? 'https://dome-concert-controller.vercel.app' : 'http://localhost:3000';
 
 const corsOptions = {
@@ -17,6 +18,7 @@ const corsOptions = {
 const app = express();
 const server = http.createServer(app);
 app.use(cors(corsOptions));
+app.use(express.static('public'));
 
 //SOCKET IO
 const io = new Server(server, {cors: corsOptions});
@@ -75,13 +77,16 @@ io.on('connection', (socket) => {
         updatePlayerPosition(id, position);
     });
 
-    socket.on('disconnect', () => {
+    socket.on('disconnect', (data) => {
         console.log('A user disconnected');
+        console.log("Data: " + data);
     });
 });
 
 app.get('/', (req, res) => {
-    res.send("Server is running...");
+    // res.send("Server is running...");
+    //send a html file instead
+    res.sendFile(__dirname + '/index.html');
 });
 
 const PORT = process.env.PORT || 3010;
@@ -89,7 +94,6 @@ server.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
 
-//TODO: Rewrite so the server hands out an ID to the client
 const addPlayer = (name, color) => {
     const id = uuid();
     console.log('Adding player: ' + name + ' with color: ' + color + ' and id: ' + id);
@@ -143,4 +147,23 @@ const updateLocalPlayerInfo = (id, color, playerName) => {
     } else {
         console.log('No player found');
     }
+}
+
+const deleteAllPlayers = () => {    
+    players.length = 0;
+    console.log('All players deleted by client');
+}
+
+app.get('/deleteAllPlayers', (req, res) => {
+    deleteAllPlayers();
+    res.send({message: 'All players deleted'});
+});
+
+app.get('/printAllPlayers', (req, res) => {
+    res.send({players: printAllPlayers()});
+});
+
+const printAllPlayers = () => {
+    console.log('All player names: ');
+    return players.map(player => player.name);
 }
